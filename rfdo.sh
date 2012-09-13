@@ -25,7 +25,7 @@ today=`cat days.txt|grep $td`
 sunset=`echo ${today:10:2}`
 
 hr=`date +%k`
-to=`echo ${whm: -2}`
+to=`echo ${whm:-2}`
 if [ $to -le $hr ] ; then
 	tdf=$(($hr - $to))
 else
@@ -75,12 +75,15 @@ if [ "$location" == "ou" ] ; then
 	echo $stamp > micis
 # if you actually use X10 to control the loungeroom lights then uncomment this
 #	if [ $hr -ge $sunset ] ; then
-#		lampon.sh
+#		lchk = `cat lightstate`
+#		if [ $lchk == "off" ] ; then
+#			lampon.sh
+#		fi
 #	fi
 	if [ "$mtv" == "" ] ; then
 		echo "welcome back" | festival --tts
 # and this
-#		if [ $hr -ge $sunset ] ; then
+#		if [ $hr -ge $sunset -a $lchk == "off" ] ; then
 #			echo "Ive turned on the light in the lounge room." | festival --tts
 #			echo "I hope you don't mind." | festival --tts
 #		fi
